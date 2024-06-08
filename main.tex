@@ -1,0 +1,582 @@
+\documentclass[12pt]{article}
+% ----------------------------------------------------------------------
+% Define external packages, language, margins, fonts, new commands 
+% and colors
+% ----------------------------------------------------------------------
+\usepackage[utf8]{inputenc} % Codification
+\usepackage[english]{babel} % Writing idiom
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[T1]{fontenc}
+\usepackage{imakeidx}
+\usepackage{circuitikz}
+
+\usepackage[export]{adjustbox} % Align images
+\usepackage{amsmath} % Extra commands for math mode
+\usepackage{amssymb} % Mathematical symbols
+\usepackage{anysize} % Personalize margins
+    %\marginsize{2cm}{2cm}{2cm}{2cm} % {left}{right}{above}{below}
+\usepackage{appendix} % Appendices
+\usepackage{cancel} % Expression cancellation
+\usepackage{caption} % Captions
+    \captionsetup{labelfont={bf}}
+\usepackage{cite} % Citations, like [1 - 3]
+\usepackage{color} % Text coloring
+\usepackage{fancyhdr} % Head note and footnote
+    \pagestyle{fancy}
+    \fancyhf{}
+    \fancyhead[L]{
+        \includegraphics[width=4cm]{NovaFct.png}
+    } % Left of Head note
+    \fancyhead[R]{\footnotesize Instrumentação e Medidas Elétricas} % Right of Head note
+    \fancyfoot[L]{\footnotesize LEEC} % Left of Footnote
+    \fancyfoot[R]{\thepage  } % Center of Footnote
+    %\fancyfoot[R]{\footnotesize Degree} % Right of Footnote
+    \renewcommand{\footrulewidth}{0.4pt} % Footnote rule
+\usepackage{float} % Utilization of [H] in figures
+\usepackage{graphicx} % Figures in LaTeX
+\usepackage[colorlinks = true, plainpages = true, linkcolor = istblue, urlcolor = istblue, citecolor = istblue, anchorcolor = istblue]{hyperref}
+\usepackage{indentfirst} % First paragraph
+\usepackage[super]{nth} % Superscripts
+\usepackage{siunitx} % SI units
+\usepackage[list=true, listformat=simple]{subcaption} % Subfigures
+\usepackage{titlesec} % Font
+    \titleformat{\section}{\Large\bfseries}{\thesection}{1em}{}
+    \titleformat{\subsection}{\large\bfseries}{\thesubsection}{1em}{}
+    \titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{1em}{}
+    %\fancyfoot[C]{\thepage}
+
+%code
+\usepackage[breakable]{tcolorbox}
+
+\graphicspath{ {images/.} }
+
+% Code highlighting
+\usepackage{listings}
+\lstset{ 
+    backgroundcolor=\color{cellbackground}, % background color for the code block
+    basicstyle=\ttfamily,                   % font style
+    breakatwhitespace=false,                % automatic breaks only at whitespace
+    breaklines=true,                        % automatic line breaking
+    captionpos=b,                           % caption position
+    commentstyle=\color{gray},              % comment style
+    escapeinside={\%*}{*)},                 % if you want to add LaTeX within your code
+    keywordstyle=\color{blue},              % keyword style
+    stringstyle=\color{dkgreen},            % string style
+    frame=single,                           % adds a frame around the code
+    rulecolor=\color{cellborder},           % border color
+}
+
+% Exact colors from NB
+\definecolor{incolor}{HTML}{303F9F}
+\definecolor{outcolor}{HTML}{D84315}
+\definecolor{cellborder}{HTML}{CFCFCF}
+\definecolor{cellbackground}{HTML}{F7F7F7}
+\definecolor{commentcolour}{rgb}{0.42, 0.45, 0.51}
+\definecolor{string}{rgb}{0.42, 0.45, 0.51}
+
+% Random text (not needed)
+\usepackage{lipsum}
+\usepackage{duckuments}
+
+% New and re-newcommands
+\newcommand{\sen}{\operatorname{\sen}} % Sine function definition
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Specific rule definition
+\renewcommand{\appendixpagename}{\LARGE Appendices}
+
+% Colors
+\definecolor{istblue}{RGB}{28, 118, 196}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 Document                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% ----------------------------------------------------------------------
+% Cover
+% ----------------------------------------------------------------------
+\begin{center}
+    \begin{figure}
+        \vspace{-1.0cm}
+        \includegraphics[scale = 1, left]{NovaFct.png} % Nova logo
+    \end{figure}
+
+    \mbox{}\\[2.0cm]
+    \textsc{\Huge Licenciatura em Engenharia Eletrotécnica e de Computadores}\\[2.5cm]
+    \textsc{\LARGE Instrumentação e Medidas Elétricas}\\[2.0cm]
+    \HRule\\[0.4cm]
+    {\large \bf { 
+        Relatório trabalho laboratorial\\
+        Sistema Autónomo de Monitorização do Consumo de\\
+        Energia Elétrica de uma Carga Monofásica 
+    }[\texttt{PT}]}\\[0.2cm]
+    \HRule\\[1.5cm]
+\end{center}
+
+\begin{flushleft}
+    \textbf{Authors:}
+\end{flushleft}
+
+\begin{center}
+    \begin{minipage}{0.5\textwidth}
+        \begin{flushleft}
+            Martim Agostinho (62964)\\
+            Diogo Novais (62506)\\
+            Filipe Cavalheiro (62894)\\
+            Isaac Furtado (62884)
+        \end{flushleft}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \begin{flushright}
+            \href{mailto:md.agostinho@campus.fct.unl.pt}{\texttt{md.agostinho@campus.fct.unl.pt}}\\
+            \href{mailto:dm.novais@campus.fct.unl.pt}{\texttt{dm.novais@campus.fct.unl.pt}}\\
+            \href{mailto:fs.cavalheiro@campus.fct.unl.pt}{\texttt{fs.cavalheiro@campus.fct.unl.pt}}
+            \href{mailto:im.furtado@campus.fct.unl.pt}{\texttt{im.furtado@campus.fct.unl.pt}}
+        \end{flushright}
+    \end{minipage}
+\end{center}
+    
+    % Caixa a dizer o grupo
+    %\begin{flushleft}
+    %    \large $\boxed{\text{\bf Group} \ \clubsuit}$\\[4.0cm]
+    %\end{flushleft}
+
+    \vspace{4cm}
+
+    \begin{center}
+        \large \bf 2023/2024 -- 2º Semester
+    \end{center}
+
+    \thispagestyle{empty}
+
+    \setcounter{page}{0}
+
+    \newpage
+
+    \newpage
+
+    \tableofcontents % Generates the table of contents
+
+    \newpage
+
+    \listoffigures
+
+    \newpage
+    \section{Introdução e contextualização}
+    Este relatório detalha o desenvolvimento e a implementação de um 
+sistema automático de medida destinado à monitorização do consumo 
+de energia elétrica em cargas monofásicas, sem necessidade de parametrização 
+por parte do utilizador. O sistema inclui a visualização remota dos
+dados através da plataforma ThingSpeak e armazena informações para
+análises futuras.
+
+    \section{Solução proposta}
+    Neste trabalho é fornecida a saida do transdutor tendo acesso a dois dispositivos sendo os mesmos um transdutor de tensão-tensão
+que têm variação de [-2.5;2.5] volt (apartir de \(\pm\) 230v) como é demonstrado na Figura~\ref{fig:transdutor_tensão}, 
+e o trandutor de tensão-corrente que têm uma variação á saida de [-1;1] volt (apartir de \(\pm\) 20A), demosntrado na Figura~\ref{fig:transdutor_corrente}.
+\vspace*{1cm}
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.5\textwidth}
+        \begin{tikzpicture}[scale=0.85]
+            \begin{axis}[
+            minor tick num=3,
+            xtick=\empty,
+            ytick={},
+            axis y line=left,
+            axis x line=middle,
+            xlabel={$t$}, ylabel={$V(t)$},
+            ymax=3,
+            ymin=-3,
+            ]
+            \addplot[smooth, blue, mark=none, domain=0:10, samples=40] {2.5*cos(deg(x))};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{transdutor de tensão.}
+        \label{fig:transdutor_tensão}
+    \end{subfigure}%
+    \begin{subfigure}[b]{0.5\textwidth}
+        \begin{tikzpicture}[scale=0.85]
+            \begin{axis}[
+            minor tick num=3,
+            xtick=\empty,
+            ytick={},
+            axis y line=left,
+            axis x line=middle,
+            xlabel={$t$}, ylabel={$I(t)$},
+            ymax=3,
+            ymin=-3,
+            ]
+            \addplot[smooth, blue, mark=none, domain=0:10, samples=40] {cos(deg(x))};
+            \end{axis}
+        \end{tikzpicture}
+        \caption{transdutor de corrente.}
+        \label{fig:transdutor_corrente}
+    \end{subfigure}%
+    \caption{Variação dos sinais dos transdutores}
+\end{figure}
+
+
+\noindent O problema dos valores medidos é que o microcontrolador usado, o esp32, não é capas de ler este sinal
+mas sim apenas sinais entre [0, 3.3] volt dai ser necessario usar montagem somadora para elevar o sinal para valores 
+apenas positivo e reduzir a amplitude na tensão.
+
+\vspace{1cm}
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \ctikzset{amplifiers/fill=cyan!20, component text=left}
+    \begin{circuitikz}
+    \draw
+    (0, 0) node[op amp, anchor=-] (opamp) {LM741}
+    (opamp.-) to[short,-*] ++(-1, 0) coordinate(A)
+    (opamp.+) -| ++(-1,-1) node[ground](B){}
+    (opamp.out) to [short,*-o] ++(1, 0) coordinate(C) node[above]{$v_o$}
+    (A) to[R,l_=$10K\Omega$] ++(-2, 0) -- ++(-1, 0) to ++(0, 0) node[above]{$v_1$}
+    (A) |- ++(1,1) coordinate(L1) to[R=$1K\Omega$] ++(2,0) -| (opamp.out)
+    (L1) to [R,l_=$2K\Omega$] ++(-4,0) coordinate(D)
+    (D) to ++(0, 0) node[above]{$v_2$}
+    (L1) to [short,-*] ++(-1, 0)
+    ;
+    \end{circuitikz}
+    \caption{Sinal de corrente}
+    \label{fig:circuit_somador_corrente}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+      \centering
+      \ctikzset{amplifiers/fill=cyan!20, component text=left}
+      \begin{circuitikz}
+      \draw
+      (0, 0) node[op amp, anchor=-] (opamp) {LM741}
+      (opamp.-) to[short,-*] ++(-1, 0) coordinate(A)
+      (opamp.+) -| ++(-1,-1) node[ground](B){}
+      (opamp.out) to [short,*-o] ++(1, 0) coordinate(C) node[above]{$v_o$}
+      (A) to[R,l_=$10K\Omega$] ++(-2, 0) -- ++(-1, 0) to ++(0, 0) node[above]{$v_1$}
+      (A) |- ++(1,1) coordinate(L1) to[R=$1K\Omega$] ++(2,0) -| (opamp.out)
+      (L1) to [R,l_=$1K\Omega$] ++(-4,0) coordinate(D)
+      (D) to ++(0, 0) node[above]{$v_2$}
+      (L1) to [short,-*] ++(-1, 0)
+      ;
+      \end{circuitikz}
+      \caption{Sinal de tensão}
+      \label{fig:circuit_somador_tensao}
+  \end{subfigure}%
+  \caption{Circuito de condicionamento}
+\end{figure}
+
+\noindent Neste trabalho queremos registar no ThingSpeak os valores da tensão e 
+corrente eficazes, a potência ativa consumida, a potência aparente
+consumida, assim como o fator de potência e as frequências da tensão
+e corrente.\par
+\vspace{1ex}
+\noindent Para tal o esp32 passa 1 minuto a recolher amostras, da rede, e após
+esse minuto ele processa os dados recolhidos e envia os dados
+processados para o ThingSpeak.\par
+\vspace{1ex}
+\noindent Recolha de dados:\par
+\noindent Como já foi referido o esp32 passa 1 minuto a recolher dados,
+estes dados são as tensões equivalentes de tensão e correntes
+recolhidas pelo transdutor e limitados pelos circuitos acima.
+Durante a recolha de dados o esp32 recolhe uma amostra de sinal
+a cada 200 us estas amostras são adicionadas à média de todas
+as amostras já tiradas para o calculo de alguns valores diferentes.
+
+\begin{figure}[H]
+  \begin{subfigure}[b]{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.85]
+          \begin{axis}[
+          minor tick num=3,
+          xtick=\empty,
+          ytick={},
+          axis y line=left,
+          axis x line=middle,
+          xlabel={$x$}, ylabel={$\sin(x)$},
+          ymax=4,
+          ymin=-1,
+          ]
+          \addplot[smooth, blue, mark=none, domain=0:10, samples=40] {1.25*cos(deg(x)) + 1.5};
+          \end{axis}
+      \end{tikzpicture}
+      \caption{Tensão}
+      \label{fig:esp_tensao}
+  \end{subfigure}%
+  \begin{subfigure}[b]{0.5\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.85]
+          \begin{axis}[
+          minor tick num=3,
+          xtick=\empty,
+          ytick={},
+          axis y line=left,
+          axis x line=middle,
+          xlabel={$x$}, ylabel={$\sin(x)$},
+          ymax=4,
+          ymin=-1,
+          ]
+          \addplot[smooth, blue, mark=none, domain=0:10, samples=40] {cos(deg(x)) + 1.5};
+          \end{axis}
+      \end{tikzpicture}
+      \caption{Corrente}
+      \label{fig:esp_corrente}
+  \end{subfigure}%
+  \caption{Sinal recebido}
+\end{figure}
+
+Usamos este método para calcular a média da Tensão ao quadrado
+\((v(t)^2)\), a média da corrente ao quadrado \((i(t)^2)\) e a média da
+potência ativa \((v(t) * i(t))\). 
+Também durante este período de recolha
+de dados estimamos o valor das frequências de tensão e corrente 
+ao detetar quando a tensão ou a corrente passam de um valor 
+negativo para um valor positivo, mas não quando passamos de
+valor positivo para negativo, e sabendo o número de amostras que
+recolhemos entre estes zeros, conseguimos estimar o tempo que
+passou entre eles. 
+
+\noindent Processamento de dados: \par
+\noindent Depois do minuto de recolha de dados, temos um pequeno intervalo
+em que procsaamos os dados recolhidos e enviamos os dados processados
+para o ThingSpeak. 
+Para obtermos o valor das correntes e tensões eficazes
+precisamos apenas de fazer a raiz quadrada das médias da corrente e
+tensão quadradas \((\sqrt{i(t)^2})\) e \((\sqrt{v(t)^2})\), respetivamente.\\
+O valor da potência aparence é a multiplicação da corrente eficaz com
+a tensão eficaz \(S = (\sqrt{(i(t)^2 \cdot v(t)^2)})\). A potência aparente
+é a média da tensão a multiplicar pela corrente (fica inalterada depois
+da sua medição). O fator de potência é calculado a partir das potências 
+aparente e ativa \(cos(\varphi) = (\frac{P}{S})\).
+    \section{Resultados e análise}
+    \section{Conclusões}
+    \section{Bibliografia}
+    Slides disponibilizados pelo Professor Rui Miguel Amaral Lopes no Clip da disciplina em "Material Multimédia" da coluna de "Documentação de apoio"
+    \section*{Anexo}
+    A - codigo do esp32
+    \begin{lstlisting}
+        #include <WiFi.h>
+        #include "secrets.h"
+        #include "ThingSpeak.h" // always include thingspeak header file after other header files and custom macros
+        
+        #define VOLTPIN 34
+        #define CURRENTPIN 35
+        #define VOLTAGEGAIN 264
+        //#define VOLTAGEOFFSET 1.5
+        #define SAMPLEPERIOD 200      // unidade - us
+        //#define CURRENTOFFSET 1.5
+        #define CURRENTGAIN 20
+        #define MINPERIOD 10000
+        #define SENDPERIOD 60000000
+        
+        /***********WIFI***********/
+        char ssid[] = SECRET_SSID;   // your network SSID (name)
+        char pass[] = SECRET_PASS;   // your network password
+        int keyIndex = 0;            // your network key Index number (needed only for WEP)
+        WiFiClient  client;
+        unsigned long myChannelNumber = SECRET_CH_ID;
+        const char * myWriteAPIKey = SECRET_WRITE_APIKEY;
+        /***********WIFI***********/
+        
+        bool voltSig    = false; // false = low part of the amplitute true = high
+        bool currentSig = false;
+        
+        // Initialize our values
+        float instVolt;
+        float instCurrent;
+        
+        float avgRealPower;
+        float apparentPower;
+        
+        float ief;
+        float vef;
+        
+        float freqc;
+        float freqv;
+        
+        float phi;
+        
+        
+        unsigned long int nSamples = 0;
+        unsigned long int auxTimer;
+        unsigned long int timeStart;
+        
+        
+        unsigned int nPeriodV;
+        unsigned int nPeriodC;
+        unsigned long int periodV;
+        unsigned long int periodC;
+        unsigned long int avgPeriodV;
+        unsigned long int avgPeriodC;
+        float averageC;
+        float averageV;
+        unsigned long int periodStartV;
+        unsigned long int periodStartC;
+        float currentOffset = 1.5;
+        float voltageOffset = 1.5;
+        
+        float ReadVoltage() {
+          int x = analogRead(VOLTPIN);
+          float voltx = x * 3.3 / 4095;
+          return (voltx - voltageOffset) * VOLTAGEGAIN;
+        }
+        
+        float ReadCurrent() {
+          int x = analogRead(CURRENTPIN);
+          float ic = x * 3.3 / 4095;
+          return (ic - currentOffset) * CURRENTGAIN;
+        }
+        
+        void getfreqv() {
+          freqv = 1000000.0 / avgPeriodV;
+        }
+        
+        void getfreqc() {
+          freqc = 1000000.0 / avgPeriodC;
+        }
+        
+        void getvef() {
+          vef = sqrt( vef );
+        }
+        
+        void getief() {
+          ief = sqrt( ief );
+        }
+        
+        void getRealpower() {
+          avgRealPower = (avgRealPower * nSamples + (instCurrent * instVolt)) / (nSamples + 1);
+        }
+        
+        void getapparentpower() {
+          apparentPower = vef * ief;
+        }
+        
+        void getphi() {
+          phi = avgRealPower / apparentPower;
+        }
+        
+        void setup() {
+          Serial.begin(115200);  //Initialize serial
+          while (!Serial) {
+            ; // wait for serial port to connect. Needed for Leonardo natinstVolte USB port only
+          }
+        
+          /***********WIFI***********/
+          WiFi.mode(WIFI_STA);
+          ThingSpeak.begin(client);  // Initialize ThingSpeak
+          /***********WIFI***********/
+        
+          voltSig    = true; //start allways in the beggining of a up wave
+          currentSig = true;
+        
+          auxTimer = micros();
+          timeStart = micros();
+          periodC = 0;
+          periodV = 0;
+        }
+        
+        void loop() {
+          Serial.println("Hello");
+        
+          //Sync to voltage period
+          while (instVolt > 0.05) {
+            instVolt = ReadVoltage();
+          };
+          while (instVolt < -0.05) {
+            instVolt = ReadVoltage();
+          };
+        
+          auxTimer      = micros(); //Used to count 60 seconds
+          nSamples      = 0;
+          nPeriodV      = 0;
+          nPeriodC      = 0;
+          ief           = 0;
+          vef           = 0;
+          avgPeriodV    = 0;
+          avgPeriodC    = 0;
+          periodStartV  = auxTimer;
+          periodStartC  = auxTimer;
+        
+          while (micros() - auxTimer < SENDPERIOD) {
+            timeStart   = micros();
+            instVolt    = ReadVoltage();
+            instCurrent = ReadCurrent();
+        
+            vef = (vef * nSamples + pow(instVolt, 2)) / (nSamples + 1);
+            ief = (ief * nSamples + pow(instCurrent, 2)) / (nSamples + 1);
+        
+            if ((instVolt > 0.05) && !voltSig) { // means it got positinstVolte
+        
+              periodV  = micros() - periodStartV;
+              //if ( periodv > MINPERIOD  ) { Serve para existir uma frequencia minima
+        
+              periodStartV = periodStartV + periodV;
+              avgPeriodV = (avgPeriodV * nPeriodV + periodV) / (nPeriodV + 1);
+              nPeriodV++;
+              voltSig = true;
+              //}
+            }
+            if ((instVolt < -0.05) && voltSig)
+              voltSig = false;
+        
+            //Current
+            if ((instCurrent > 0.01) && !currentSig) { // means it got positinstVolte
+        
+              periodC  = micros() - periodStartC;
+              //if ( periodC > MINPERIOD  ) { Serve para existir uma frequencia minima
+        
+              periodStartC = periodStartC + periodC;
+              avgPeriodC = (avgPeriodC * nPeriodC + periodC) / (nPeriodC + 1);
+              nPeriodC++;
+              currentSig = true;
+              //}
+            }
+            if ((instCurrent < -0.01) && currentSig)
+              currentSig = false;
+        
+            getRealpower(); // add the read value to the avg Real Power value
+        
+            while ( micros() - timeStart < SAMPLEPERIOD ) {}
+            nSamples++;
+          }
+          
+          getfreqv();
+          getfreqc();
+          getief();
+          getvef();
+          getapparentpower();
+          getphi();
+        
+          /***********WIFI***********/
+          if (WiFi.status() != WL_CONNECTED) {
+            Serial.print("Attempting to connect to SSID: ");
+            Serial.println(SECRET_SSID);
+            while (WiFi.status() != WL_CONNECTED) {
+              WiFi.begin(ssid, pass);  // Connect to WPA/WPA2 network. Change this line if using open or WEP network
+              Serial.print(".");
+              delay(5000);
+            }
+            Serial.println("\nConnected.");
+          }
+        
+          // write to the ThingSpeak channel
+          int x = ThingSpeak.writeFields(myChannelNumber, myWriteAPIKey);
+          if (x == 200) {
+            Serial.println("Channel update successful.");
+          }
+          else {
+            Serial.println("Problem updating channel. HTTP error code " + String(x));
+          }
+          ThingSpeak.setField(1, vef);
+          ThingSpeak.setField(2, freqv);
+          ThingSpeak.setField(3, ief);
+          ThingSpeak.setField(4, freqc);
+          ThingSpeak.setField(5, avgRealPower);
+          ThingSpeak.setField(6, apparentPower);
+          ThingSpeak.setField(7, phi);
+          /***********WIFI***********/
+        }
+        
+    \end{lstlisting}
+\end{document}
